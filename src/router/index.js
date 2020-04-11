@@ -25,6 +25,14 @@ export default new Router({
       component: function(resolve) {
         require(["./../components/form/index.vue"], resolve);
       }
+    },
+    {
+      //弹窗
+      path: "/NoticeTest",
+      name: "NoticeTest",
+      component: function(resolve) {
+        require(["./../components/notice/NoticeTest.vue"], resolve);
+      }
     }
   ]
 });
