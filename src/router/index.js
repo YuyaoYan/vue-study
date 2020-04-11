@@ -17,6 +17,14 @@ export default new Router({
       component: function(resolve) {
         require(["./../components/slot/SlotTest.vue"], resolve);
       }
+    },
+    {
+      //表单
+      path: "/FormTest",
+      name: "FormTest",
+      component: function(resolve) {
+        require(["./../components/form/index.vue"], resolve);
+      }
     }
   ]
 });
