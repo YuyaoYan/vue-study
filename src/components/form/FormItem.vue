@@ -6,7 +6,7 @@
   </div>
 </template>
 <script>
-import Schema from 'async-validator';
+import Schema from "async-validator";
 export default {
   inject: ["Form"],
   name: "FormItem",
@@ -17,10 +17,16 @@ export default {
     },
     prop: {
       type: String
-    },
+    }
   },
   mounted() {
-    this.$on("validate", this.validate);
+    //这么写会有返回值，抛出异常时会报错
+    // this.$on("validate", this.validate);
+
+    //这么写就是只执行validate函数
+    this.$on("validate", () => {
+      this.validate();
+    });
   },
   data() {
     return {
@@ -34,7 +40,7 @@ export default {
 
       const desc = { [this.prop]: rules };
       const schema = new Schema(desc);
-      
+
       //return是校验结果，schema返回的是promise
       return schema.validate({ [this.prop]: value }, errors => {
         if (errors) {
@@ -48,7 +54,7 @@ export default {
 };
 </script>
 <style lang="css" scope>
-.errorMessage{
+.errorMessage {
   color: lightsalmon;
-}  
+}
 </style>
