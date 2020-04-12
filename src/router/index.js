@@ -33,6 +33,14 @@ export default new Router({
       component: function(resolve) {
         require(["./../components/notice/NoticeTest.vue"], resolve);
       }
+    },
+    {
+      //弹窗
+      path: "/treeTest",
+      name: "treeTest",
+      component: function(resolve) {
+        require(["./../components/tree/treeTest.vue"], resolve);
+      }
     }
   ]
 });
