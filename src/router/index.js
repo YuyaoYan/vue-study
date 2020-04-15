@@ -2,6 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 import HelloWorld from "@/components/HelloWorld";
 import routerTest from "./yrouter";
+import navigationGuard,{globalGuard} from "./navigationGuard"
 Vue.use(Router);
 const route = [
   {
@@ -39,9 +40,19 @@ const route = [
     component: function(resolve) {
       require(["./../components/tree/treeTest.vue"], resolve);
     }
+  },
+  {
+    //过度动画
+    path:"/transition",
+    name: "transition",
+    component: function(resolve) {
+      require(["./../components/transition.vue"], resolve);
+    }
   }
 ];
 
+const routes = route.concat(routerTest,navigationGuard);
+const finalRoute = new Router({ routes });
 
-const routes = route.concat(routerTest);
-export default new Router({ routes });
+globalGuard(finalRoute)
+export default finalRoute;
