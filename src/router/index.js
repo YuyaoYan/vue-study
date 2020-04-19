@@ -2,7 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 import HelloWorld from "@/components/HelloWorld";
 import routerTest from "./yrouter";
-import navigationGuard,{globalGuard} from "./navigationGuard"
+import navigationGuard, { globalGuard } from "./navigationGuard";
 Vue.use(Router);
 const route = [
   {
@@ -43,16 +43,32 @@ const route = [
   },
   {
     //过度动画
-    path:"/transition",
+    path: "/transition",
     name: "transition",
     component: function(resolve) {
       require(["./../components/transition.vue"], resolve);
     }
+  },
+  {
+    //Vuex
+    path: "/vuex",
+    name: "vuex",
+    component: function(resolve) {
+      require(["./../components/vuex/index.vue"], resolve);
+    }
+  },
+  {
+    //Vuex模块化写法
+    path: "/moduleTest",
+    name: "moduleTest",
+    component: function(resolve) {
+      require(["./../components/vuex/moduleTest.vue"], resolve);
+    }
   }
 ];
 
-const routes = route.concat(routerTest,navigationGuard);
+const routes = route.concat(routerTest, navigationGuard);
 const finalRoute = new Router({ routes });
 
-globalGuard(finalRoute)
+globalGuard(finalRoute);
 export default finalRoute;

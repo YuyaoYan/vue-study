@@ -12,9 +12,7 @@ const route = [
   {
     path: "/navigationGuard/login",
     name: "login",
-    component: function(resolve) {
-      require(["./../components/router/advanced/login.vue"], resolve);
-    }
+    component: () => import("./../components/router/advanced/login.vue")
   },
   {
     path: "/navigationGuard/home",
@@ -26,9 +24,8 @@ const route = [
   {
     path: "/navigationGuard/commodityOne",
     name: "commodityOne",
-    component: function(resolve) {
-      require(["./../components/router/advanced/commodityOne.vue"], resolve);
-    },
+    component: () => import("./../components/router/advanced/commodityOne.vue"),
+
     //表示这个页面需要登陆后才能查看
     meta: { auth: true }
   },
