@@ -64,6 +64,14 @@ const route = [
     component: function(resolve) {
       require(["./../components/vuex/moduleTest.vue"], resolve);
     }
+  },
+  {
+    //hotTable
+    path: "/tableTest",
+    name: "tableTest",
+    component: function(resolve) {
+      require(["./../components/table/tableTest.vue"], resolve);
+    }
   }
 ];
 
