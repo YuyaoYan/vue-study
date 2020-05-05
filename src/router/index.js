@@ -72,6 +72,13 @@ const route = [
     component: function(resolve) {
       require(["./../components/table/tableTest.vue"], resolve);
     }
+  },
+  {
+    path: "/lodash",
+    name: "Lodash",
+    component: function(resolve) {
+      require(["./../components/lodash/Lodash.vue"], resolve);
+    }
   }
 ];
 
