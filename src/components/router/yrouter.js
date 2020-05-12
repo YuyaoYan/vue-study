@@ -12,7 +12,7 @@ const router = [
     path: "/home",
     name: "home",
     component: function(resolve) {
-      require(["./../components/router/home.vue"], resolve);
+      require(["./home.vue"], resolve);
     },
     children: [
       {
@@ -20,13 +20,13 @@ const router = [
         alias: "alias", //别名
         components: {
           list: function(resolve) {
-            require(["./../components/router/list.vue"], resolve);
+            require(["./list.vue"], resolve);
           },
           edit: function(resolve) {
-            require(["./../components/router/edit.vue"], resolve);
+            require(["./edit.vue"], resolve);
           },
           default: function(resolve) {
-            require(["./../components/router/edit"], resolve);
+            require(["./edit"], resolve);
           }
         }
       }
@@ -38,7 +38,7 @@ const router = [
     name: "list",
     redirect: "/home/alias", //重定向
     component: function(resolve) {
-      require(["./../components/router/list.vue"], resolve);
+      require(["./list.vue"], resolve);
     }
   },
   {
@@ -46,14 +46,14 @@ const router = [
     path: "/home/edit",
     name: "edit",
     component: function(resolve) {
-      require(["./../components/router/edit.vue"], resolve);
+      require(["./edit.vue"], resolve);
     }
   },
   {
     path: "/home/redirect",
     name: "redirect",
     component: function(resolve) {
-      require(["./../components/router/redirect.vue"], resolve);
+      require(["./redirect.vue"], resolve);
     }
   },
   {
@@ -65,7 +65,7 @@ const router = [
     //路由传参 - 布尔值写法
     path: "/user/:id/:rr",
     component: function(resolve) {
-      require(["./../components/router/propsTest.vue"], resolve);
+      require(["./propsTest.vue"], resolve);
     },
     props: true,
   },
@@ -73,7 +73,7 @@ const router = [
     //路由传参 - 对象写法
     path: "/user",
     component: function(resolve) {
-      require(["./../components/router/propsTest.vue"], resolve);
+      require(["./propsTest.vue"], resolve);
     },
     props: {
       ddd: "ee"
@@ -83,7 +83,7 @@ const router = [
     //路由传参 - 函数写法
     path: "/user",
     component: function(resolve) {
-      require(["./../components/router/propsTest.vue"], resolve);
+      require(["./propsTest.vue"], resolve);
     },
     props: (route) => ({ query: route.query.q }),
   },
