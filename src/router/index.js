@@ -1,17 +1,10 @@
 import Vue from "vue";
 import Router from "vue-router";
-import HelloWorld from "@/components/HelloWorld";
 import routerTest from "./../components/router/yrouter.js";
 import yoyoProject from "./../pages/yoyo-project";
-import yoyoProjectCom from "./../pages/yoyo-project/src/yoyoMenu.vue";
 import navigationGuard, { globalGuard } from "./navigationGuard";
 Vue.use(Router);
 const route = [
-  // {
-  //   path: "/",
-  //   name: "yoyoHome",
-  //   component: yoyoProjectCom
-  // },
   {
     path: "/SlotTest",
     name: "SlotTest",

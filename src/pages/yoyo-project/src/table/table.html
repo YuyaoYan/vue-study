@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title></title>
+    <script src="./js/xlsx.core.min.js"></script>
+    <script src="./js/xlsx.utils.min.js"></script>
+    <script>
+      function saveAs(obj, fileName) {
+        //当然可以自定义简单的下载文件实现方式
+        var tmpa = document.createElement("a");
+        tmpa.download = fileName || "下载";
+        tmpa.href = URL.createObjectURL(obj); //绑定a标签
+        tmpa.click(); //模拟点击实现下载
+        setTimeout(function() {
+          //延时释放
+          URL.revokeObjectURL(obj); //用URL.revokeObjectURL()来释放这个object URL
+        }, 100);
+      }
+    </script>
+    <script>
+      var Data = [
+        {
+          riqi: "2016/5/1",
+          ming: "关爱单身狗",
+          sheng: "上海",
+          shi: "普陀区",
+          dizhi: "上海市普陀区金沙江路 1518 弄",
+          youbian: "200333"
+        },
+        {
+          riqi: "2016/5/2",
+          ming: "关爱单身狗",
+          sheng: "上海",
+          shi: "普陀区",
+          dizhi: "上海市普陀区金沙江路 1518 弄",
+          youbian: "200333"
+        },
+        {
+          riqi: "2016/5/3",
+          ming: "关爱单身狗",
+          sheng: "上海",
+          shi: "普陀区",
+          dizhi: "上海市普陀区金沙江路 1518 弄",
+          youbian: "200333"
+        },
+        {
+          riqi: "2016/5/4",
+          ming: "关爱单身狗",
+          sheng: "上海",
+          shi: "普陀区",
+          dizhi: "上海市普陀区金沙江路 1518 弄",
+          youbian: "200333"
+        },
+        {
+          riqi: "2016/5/5",
+          ming: "关爱单身狗",
+          sheng: "上海",
+          shi: "普陀区",
+          dizhi: "上海市普陀区金沙江路 1518 弄",
+          youbian: "200333"
+        },
+        {
+          riqi: "2016/5/6",
+          ming: "关爱单身狗",
+          sheng: "上海",
+          shi: "普陀区",
+          dizhi: "上海市普陀区金沙江路 1518 弄",
+          youbian: "200333"
+        },
+        {
+          riqi: "2016/5/7",
+          ming: "关爱单身狗",
+          sheng: "上海",
+          shi: "普陀区",
+          dizhi: "上海市普陀区金沙江路 1518 弄",
+          youbian: "200333"
+        }
+      ];
+    </script>
+  </head>
+
+  <body>
+    <input type="button" onclick="downloadExl()" value="导出" />
+    <script>
+      var head = {
+        A1: { v: "日期" },
+        B1: { v: "配送信息" },
+        C1: { v: "" },
+        D1: { v: "" },
+        E1: { v: "" },
+        F1: { v: "" },
+        G1: { v: "" },
+        H1: { v: "" },
+        I1: { v: "" },
+        J1: { v: "" },
+        K1: { v: "" },
+        L1: { v: "" },
+        M1: { v: "" },
+        N1: { v: "" },
+        O1: { v: "" },
+        P1: { v: "" },
+        Q1: { v: "" },
+        A2: { v: "" },
+        B2: { v: "姓名" },
+        C2: { v: "地址" },
+        D2: { v: "" },
+        E2: { v: "" },
+        F2: { v: "" },
+        A3: { v: "" },
+        B3: { v: "" },
+        C3: { v: "省份" },
+        D3: { v: "市区" },
+        E3: { v: "地址" },
+        F3: { v: "邮编" },
+        "!merges": [
+          { s: { c: 1, r: 0 }, e: { c: 5, r: 0 } },
+          { s: { c: 2, r: 1 }, e: { c: 5, r: 1 } },
+          { s: { c: 0, r: 0 }, e: { c: 0, r: 2 } },
+          { s: { c: 1, r: 1 }, e: { c: 1, r: 2 } }
+        ]
+      };
+      var keyMap = ["riqi", "ming", "sheng", "shi", "dizhi", "youbian"]; //通过设置数组让导出时可以按顺序显示
+      var wopts = { bookType: "xlsx", bookSST: false, type: "binary" };
+      function downloadExl() {
+        var data = xlsxUtils.format2Sheet(Data, 0, 3, keyMap); //偏移3行按keyMap顺序转换
+        var dataKeys = Object.keys(data);
+        for (var k in head) data[k] = head[k]; //追加列头
+        var wb = xlsxUtils.format2WB(
+          data,
+          undefined,
+          undefined,
+          "A1:" + dataKeys[dataKeys.length - 1]
+        );
+        saveAs(xlsxUtils.format2Blob(wb), "这里是下载的文件名.xlsx");
+      }
+    </script>
+  </body>
+</html>

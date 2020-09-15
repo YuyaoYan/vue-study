@@ -5,45 +5,77 @@
       <el-menu
         default-active="2"
         class="el-menu-vertical-demo"
-        active-text-color="#ffd04b"
+        active-text-color="#565c63"
         text-color="#565c63"
       >
-      <div v-for="(item,index) in fileList" :key="index">
-        <el-menu-item index="2-1-1" @click="change(item.name)">{{item.name}}</el-menu-item>
-      </div>
+        <div v-for="(item,index) in fileList" :key="index">
+          <el-menu-item index="index" @click="change(item.name)">{{item.name}}</el-menu-item>
+        </div>
       </el-menu>
     </div>
     <!-- menu end -->
 
     <!-- show the content of .md file on right side -->
-    <div v-html="markedIntoHTML"></div>
+    <div class="md-file-display" v-html="markedIntoHTML"></div>
   </div>
 </template>
 <script>
 import marked from "marked";
 import axios from "axios";
+import hljs from "highlight.js";
+import "highlight.js/styles/monokai-sublime.css";
 export default {
   name: "displayMarkdownFile",
   data() {
     return {
       markedIntoHTML: "",
-      fileList: []
+      fileList: [],
+      hljs: null
     };
   },
   created() {
     this.fileList = this.getAllMDFile();
-    console.log("0==",this.fileList);
-    
   },
+  mounted() {},
   methods: {
     change(fileName) {
-      axios.get(`http://localhost:8080/static/md/${fileName}.md`).then(response => {
-        console.log(response.data);
-        this.markedIntoHTML = marked(response.data);
-      });
+      console.log(111);
+      debugger;
+      axios
+        .get(`http://localhost:8080/static/md/${fileName}.md`)
+        .then(response => {
+          console.log("marked", marked);
+          // marked.setOptions({
+          //   renderer: new marked.Renderer(),
+          //   highlight: function(code) {
+          //     return hljs.highlightAuto(code).value;
+          //   },
+          //   pedantic: false,
+          //   gfm: true,
+          //   tables: true,
+          //   breaks: false,
+          //   sanitize: false,
+          //   smartLists: true,
+          //   smartypants: false,
+          //   xhtml: false
+          // });
+          this.markedIntoHTML = marked(response.data, {
+            renderer: new marked.Renderer(),
+            highlight: function(code) {
+              return hljs.highlightAuto(code).value;
+            },
+            pedantic: false,
+            gfm: true,
+            tables: true,
+            breaks: false,
+            sanitize: false,
+            smartLists: true,
+            smartypants: false,
+            xhtml: false
+          });
+        });
     },
     getAllMDFile() {
-      debugger;
       // 拉取该文件夹下所有文件信息
       const filesMD = require.context(
         "../../../../../static/md",
@@ -61,17 +93,20 @@ export default {
           listObj.children = [];
           listObj.showChild = false;
         }
-        console.log(tmepListDatas);
-        
         return tmepListDatas.push(listObj);
       });
-      return tmepListDatas
+      return tmepListDatas;
     }
   }
 };
 </script>
 <style lang="css">
 .md-file-menu {
+  display: inline-block;
   width: 10%;
+}
+.md-file-display {
+  display: inline-block;
+  vertical-align: top;
 }
 </style>
