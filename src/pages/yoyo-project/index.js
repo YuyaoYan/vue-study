@@ -61,12 +61,20 @@ const route = [
         name: "exportTable",
         components: {
           exportTable: function(resolve) {
-            console.log(2);
-            
             require(["../yoyo-project/src/table/exportTable.vue"], resolve);
           }
         }
       },
+      {
+        //css - 三角形triangle
+        path: "/triangle",
+        name: "triangle",
+        components: {
+          triangle: function(resolve) {
+            require(["../yoyo-project/src/cssPractice/triangle.vue"], resolve);
+          }
+        }
+      }
     ]
   }
 ];
