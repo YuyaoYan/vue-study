@@ -74,6 +74,16 @@ const route = [
             require(["../yoyo-project/src/cssPractice/triangle.vue"], resolve);
           }
         }
+      },
+      {
+        // form-validate
+        path: "/form-validate",
+        name: "form-validate",
+        components: {
+          formValidate: function(resolve) {
+            require(["../yoyo-project/src/element-comp/form-validate.vue"], resolve);
+          }
+        }
       }
     ]
   }

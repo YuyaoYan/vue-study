@@ -33,6 +33,10 @@
           <template slot="title">CSS</template>
           <el-menu-item index="3-2-1" @click="goToNewPage('/triangle')">triangle</el-menu-item>
         </el-submenu>
+        <el-submenu index="3-3">
+          <template slot="title">element-comp</template>
+          <el-menu-item index="3-3-1" @click="goToNewPage('/form-validate')">form-validate</el-menu-item>
+        </el-submenu>
       </el-submenu>
     </el-menu>
 
@@ -46,6 +50,7 @@
       <router-view name="hotTableComp"></router-view>
       <router-view name="exportTable"></router-view>
       <router-view name="triangle"></router-view>
+      <router-view name="formValidate"></router-view>
     </div>
   </div>
 </template>
