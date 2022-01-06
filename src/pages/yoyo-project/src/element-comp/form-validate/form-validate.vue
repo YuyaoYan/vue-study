@@ -13,6 +13,15 @@
       <el-form-item label="年龄" prop="age">
         <el-input v-model="ruleForm.age"></el-input>
       </el-form-item>
+      <el-form-item label="身高" prop="height">
+        <el-input v-model="ruleForm.height"></el-input>
+      </el-form-item>
+      <el-form-item label="电话" prop="phone">
+        <el-input v-model="ruleForm.phone"></el-input>
+      </el-form-item>
+      <el-form-item label="身份证" prop="idNumber">
+        <el-input v-model="ruleForm.idNumber"></el-input>
+      </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="submitForm('ruleForm')"
           >立即创建</el-button
@@ -23,35 +32,16 @@
   </div>
 </template>
 <script>
+import { valiRange, valiAccuracy, valiPhoneNum, valiIDNumber } from "./mixin";
 export default {
   data() {
-    /**
-     * @param {Boolean} isIncludeBoundary 是否包含边界
-     */
-    let valiRange = (param, rules, value, callback) => {
-      let [min, max, isIncludeBoundary = false] = param;
-      let res = false;
-      let _value = Number(value);
-      let msg = ''
-      if (value == null || value == "" || value == undefined) {
-        callback();
-      } else if (!_value) {
-        callback(new Error(`请输入数字`));
-      } else {
-        if (isIncludeBoundary) {
-          res = _value >= min && _value <= max;
-          msg = `请输入[${min}，${max}]之间的数字`
-        } else {
-          res = _value > min && _value < max;
-          msg = `请输入(${min}，${max})之间的数字`
-        }
-        !res && callback(new Error(msg));
-      }
-    };
     return {
       ruleForm: {
         name: "",
         age: "",
+        height: "",
+        phone: "",
+        idNumber: "",
       },
       rules: {
         name: [
@@ -64,11 +54,17 @@ export default {
           },
         ],
         age: [
+          { validator: valiAccuracy.bind(this, [1]), trigger: "change" },
           {
             validator: valiRange.bind(this, [3, 5, true]),
             trigger: "change",
           },
         ],
+        height: [
+          { validator: valiAccuracy.bind(this, [1]), trigger: "change" },
+        ],
+        phone: [{ validator: valiPhoneNum, trigger: "change" }],
+        idNumber: [{ validator: valiIDNumber, trigger: "change" }],
       },
     };
   },
