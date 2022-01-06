@@ -32,7 +32,7 @@
   </div>
 </template>
 <script>
-import { valiRange, valiAccuracy, valiPhoneNum, valiIDNumber } from "./mixin";
+import { valiRange, valiAccuracy, valiPhoneNum, valiIDNumber } from "./validators";
 export default {
   data() {
     return {
