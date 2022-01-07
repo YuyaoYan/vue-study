@@ -16,6 +16,13 @@
       <el-form-item label="身高" prop="height">
         <el-input v-model="ruleForm.height"></el-input>
       </el-form-item>
+      <el-form-item label="时间" prop="time">
+        <el-date-picker
+          type="date"
+          v-model="ruleForm.time"
+          style="width: 100%"
+        ></el-date-picker>
+      </el-form-item>
       <el-form-item label="电话" prop="phone">
         <el-input v-model="ruleForm.phone"></el-input>
       </el-form-item>
@@ -32,7 +39,13 @@
   </div>
 </template>
 <script>
-import { valiRange, valiAccuracy, valiPhoneNum, valiIDNumber } from "./validators";
+import {
+  valiRange,
+  valiAccuracy,
+  valiPhoneNum,
+  valiIDNumber,
+  valiDate,
+} from "./validators";
 export default {
   data() {
     return {
@@ -40,6 +53,7 @@ export default {
         name: "",
         age: "",
         height: "",
+        time: "",
         phone: "",
         idNumber: "",
       },
@@ -56,12 +70,18 @@ export default {
         age: [
           { validator: valiAccuracy.bind(this, [1]), trigger: "change" },
           {
-            validator: valiRange.bind(this, [3, 5, true]),
+            validator: valiRange.bind(this, [3, 5, false]),
             trigger: "change",
           },
         ],
         height: [
-          { validator: valiAccuracy.bind(this, [1]), trigger: "change" },
+          { validator: valiAccuracy.bind(this, [3]), trigger: "change" },
+        ],
+        time: [
+          {
+            validator: valiDate.bind(this, ["2022-1-10", ""]),
+            trigger: "change",
+          },
         ],
         phone: [{ validator: valiPhoneNum, trigger: "change" }],
         idNumber: [{ validator: valiIDNumber, trigger: "change" }],

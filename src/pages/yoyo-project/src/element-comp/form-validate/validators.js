@@ -1,8 +1,14 @@
+import moment from "moment";
 /**
  * @description 数值范围
+ * @example valiRange.bind(this, [min, max, isIncludeBoundary])
  * @param { Boolean } isIncludeBoundary 是否包含边界
+ * @
  */
 const valiRange = (param, rules, value, callback) => {
+  if (param) {
+    return;
+  }
   let [min, max, isIncludeBoundary = false] = param;
   let res = false;
   let _value = Number(value);
@@ -22,12 +28,17 @@ const valiRange = (param, rules, value, callback) => {
     !res && callback(new Error(msg));
   }
 };
+
 /**
  * @description 精度
+ * @example valiAccuracy.bind(this, [accuracy])
  * @param { Number } accuracy 小数位数
  */
 const valiAccuracy = (param, rules, value, callback) => {
-  let [accuracy] = param;
+  if (param) {
+    return;
+  }
+  let [accuracy = 0] = param;
   let reg = null;
 
   switch (accuracy) {
@@ -44,12 +55,39 @@ const valiAccuracy = (param, rules, value, callback) => {
       break;
   }
   if (!value) callback();
-  if (!reg.test(Number(value))) {
+  if (accuracy && !reg.test(Number(value))) {
     callback(new Error(`最多${accuracy}位小数`));
   } else {
     callback();
   }
 };
+
+/**
+ * @description 时间校验
+ * @example valiDate.bind(this, ["2022-01-01", "2022-01-10"]) 时间之间
+ * @example valiDate.bind(this, ["2022-01-01", ""]) 起始时间之后
+ * @example valiDate.bind(this, ["", "2022-01-10"]) 截止时间之前
+ * @param {String} inclusiveness (两时间之间时可传入)包容性,可传入: '()','[)','(]','[]'
+ */
+const valiDate = (param, rules, value, callback) => {
+  if (param) {
+    return;
+  }
+  const [start = "", end = "", inclusiveness = "[]"] = param;
+  if (!value) callback();
+  if (start && end) {
+    !moment(value).isBetween(start, end, null, inclusiveness) &&
+      callback(new Error("时间不在规定范围"));
+  } else if (start === "" && end) {
+    !moment(value).isBefore(end) && callback(new Error(`时间需在${end}之前`));
+  } else if (start && end === "") {
+    !moment(value).isAfter(start) &&
+      callback(new Error(`时间需在${start}之后`));
+  } else {
+    callback();
+  }
+};
+
 /**
  * @description 手机号校验
  */
@@ -76,4 +114,4 @@ const valiIDNumber = (rule, value, callback) => {
   }
 };
 
-export { valiRange, valiAccuracy, valiPhoneNum, valiIDNumber };
+export { valiRange, valiAccuracy, valiDate, valiPhoneNum, valiIDNumber };
