@@ -81,7 +81,17 @@ const route = [
         name: "form-validate",
         components: {
           formValidate: function(resolve) {
-            require(["../yoyo-project/src/element-comp/form-validate/form-validate.vue"], resolve);
+            require(["../yoyo-project/src/element-comp/form-validate/index.vue"], resolve);
+          }
+        }
+      },
+      {
+        // table-validate
+        path: "/table-validate",
+        name: "table-validate",
+        components: {
+          tableValidate: function(resolve) {
+            require(["../yoyo-project/src/element-comp/table-validate/index.vue"], resolve);
           }
         }
       }
