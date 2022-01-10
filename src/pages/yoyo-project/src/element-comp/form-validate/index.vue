@@ -16,6 +16,9 @@
       <el-form-item label="身高" prop="height">
         <el-input v-model="ruleForm.height"></el-input>
       </el-form-item>
+      <el-form-item label="体重" prop="weight">
+        <el-input v-model="ruleForm.weight"></el-input>
+      </el-form-item>
       <el-form-item label="时间" prop="time">
         <el-date-picker
           type="date"
@@ -45,6 +48,7 @@ import {
   valiPhoneNum,
   valiIDNumber,
   valiDate,
+  valiStandard,
 } from "./validators";
 export default {
   data() {
@@ -76,6 +80,12 @@ export default {
         ],
         height: [
           { validator: valiAccuracy.bind(this, [3]), trigger: "change" },
+        ],
+        weight: [
+          {
+            validator: valiStandard.bind(this, ["weight"]),
+            trigger: "change",
+          },
         ],
         time: [
           {

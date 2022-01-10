@@ -1,4 +1,5 @@
 import moment from "moment";
+import _ from "lodash";
 /**
  * @description 数值范围
  * @example valiRange.bind(this, [min, max, isIncludeBoundary])
@@ -6,6 +7,7 @@ import moment from "moment";
  * @
  */
 const valiRange = (param, rules, value, callback) => {
+  console.log("param", param);
   if (!param) {
     return;
   }
@@ -27,6 +29,27 @@ const valiRange = (param, rules, value, callback) => {
     }
     !res && callback(new Error(msg));
   }
+};
+const stadardFieldList = [
+  {
+    field: "weight",
+    value: [30, 50]
+  }
+];
+/**
+ * @description 一些固定的参数校验
+ * valiStandard.bind(this, ["weight", 30, 40, true])
+ * valiStandard.bind(this, ["weight"])
+ */
+const valiStandard = (param, rule, value, callback) => {
+  let { field: sfield, value: svalue } = _.find(stadardFieldList, [
+    "field",
+    param[0]
+  ]);
+  let [smin, smax] = svalue;
+  let [field, min = smin, max = smax, isIncludeBoundary = false] = param;
+  valiRange([min, max, isIncludeBoundary], rule, value, callback);
+
 };
 
 /**
@@ -114,4 +137,11 @@ const valiIDNumber = (rule, value, callback) => {
   }
 };
 
-export { valiRange, valiAccuracy, valiDate, valiPhoneNum, valiIDNumber };
+export {
+  valiRange,
+  valiAccuracy,
+  valiDate,
+  valiPhoneNum,
+  valiIDNumber,
+  valiStandard
+};
