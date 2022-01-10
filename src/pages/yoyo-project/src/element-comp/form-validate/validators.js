@@ -39,7 +39,7 @@ const stadardFieldList = [
 /**
  * @description 一些固定的参数校验
  * valiStandard.bind(this, ["weight", 30, 40, true])
- * valiStandard.bind(this, ["weight"])
+ * 第一个参数必填，后面参数非必填
  */
 const valiStandard = (param, rule, value, callback) => {
   let { field: sfield, value: svalue } = _.find(stadardFieldList, [
