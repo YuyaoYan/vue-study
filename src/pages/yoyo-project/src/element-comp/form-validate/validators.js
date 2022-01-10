@@ -6,7 +6,7 @@ import moment from "moment";
  * @
  */
 const valiRange = (param, rules, value, callback) => {
-  if (param) {
+  if (!param) {
     return;
   }
   let [min, max, isIncludeBoundary = false] = param;
@@ -35,7 +35,7 @@ const valiRange = (param, rules, value, callback) => {
  * @param { Number } accuracy 小数位数
  */
 const valiAccuracy = (param, rules, value, callback) => {
-  if (param) {
+  if (!param) {
     return;
   }
   let [accuracy = 0] = param;
@@ -70,7 +70,7 @@ const valiAccuracy = (param, rules, value, callback) => {
  * @param {String} inclusiveness (两时间之间时可传入)包容性,可传入: '()','[)','(]','[]'
  */
 const valiDate = (param, rules, value, callback) => {
-  if (param) {
+  if (!param) {
     return;
   }
   const [start = "", end = "", inclusiveness = "[]"] = param;
