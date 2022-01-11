@@ -7,7 +7,6 @@ import _ from "lodash";
  * @
  */
 const valiRange = (param, rules, value, callback) => {
-  console.log("param", param);
   if (!param) {
     return;
   }
@@ -30,7 +29,8 @@ const valiRange = (param, rules, value, callback) => {
     !res && callback(new Error(msg));
   }
 };
-const stadardFieldList = [
+// 常用字段描述
+const CommonlyUsedFieldList = [
   {
     field: "weight",
     value: [30, 50]
@@ -38,18 +38,24 @@ const stadardFieldList = [
 ];
 /**
  * @description 一些固定的参数校验
- * valiStandard.bind(this, ["weight", 30, 40, true])
+ * valiCommonField.bind(this, ["weight", 30, 40, true])
  * 第一个参数必填，后面参数非必填
  */
-const valiStandard = (param, rule, value, callback) => {
-  let { field: sfield, value: svalue } = _.find(stadardFieldList, [
-    "field",
-    param[0]
-  ]);
-  let [smin, smax] = svalue;
-  let [field, min = smin, max = smax, isIncludeBoundary = false] = param;
+const valiCommonField = (param, rule, value, callback) => {
+  let CommonlyUsedField = _.find(CommonlyUsedFieldList, ["field", param[0]]);
+  if (!CommonlyUsedField) {
+    console.log(`校验规则【 ${param[0]} 】不存在`);
+    return;
+  }
+  let { field: sfield, value: svalue } = CommonlyUsedField;
+  let [smin = 0, smax = 0, sIsIncludeBoundary = false] = svalue;
+  let [
+    field,
+    min = smin,
+    max = smax,
+    isIncludeBoundary = sIsIncludeBoundary
+  ] = param;
   valiRange([min, max, isIncludeBoundary], rule, value, callback);
-
 };
 
 /**
@@ -143,5 +149,5 @@ export {
   valiDate,
   valiPhoneNum,
   valiIDNumber,
-  valiStandard
+  valiCommonField
 };

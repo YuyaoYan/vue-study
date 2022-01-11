@@ -48,7 +48,7 @@ import {
   valiPhoneNum,
   valiIDNumber,
   valiDate,
-  valiStandard,
+  valiCommonField,
 } from "./validators";
 export default {
   data() {
@@ -83,7 +83,7 @@ export default {
         ],
         weight: [
           {
-            validator: valiStandard.bind(this, ["weight"]),
+            validator: valiCommonField.bind(this, ["weight", 20, 30, true]),
             trigger: "change",
           },
         ],

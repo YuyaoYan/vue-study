@@ -189,7 +189,7 @@ export default {
       let valiRes = this.formData.tableData.map((i, idx) => {
         return this.validateSigleRow(form, idx);
       });
-      return valiRes.every((i) => !!i == true);
+      return valiRes.every((i) => !!i);
     },
   },
 };
