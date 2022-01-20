@@ -27,6 +27,7 @@ const valiRange = (param, rules, value, callback) => {
       msg = `请输入(${min}，${max})之间的数字`;
     }
     !res && callback(new Error(msg));
+    res && callback();
   }
 };
 // 常用字段描述
